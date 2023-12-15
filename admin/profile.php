@@ -47,7 +47,6 @@ if ($row = mysqli_fetch_assoc($result)) {
             <div class="card">
                 <div class="card-body">
                     <img src="<?php echo  $row['image']; ?>" alt="FOTO DE PERFIL" class="img-fluid mb-3">
-                  
                     <h5>
                         <?php echo $name; ?>
                     </h5>
