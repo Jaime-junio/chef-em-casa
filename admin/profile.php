@@ -6,6 +6,37 @@ $pageInfo = array(
 );
 
 include_once('../components/admin/header.php');
+
+
+$user_id = $_SESSION['user_id'];
+
+$query = "SELECT * FROM users WHERE id = '$user_id'";
+
+$result = mysqli_query($connection,$query);
+
+$user_id = $_SESSION['user_id'];
+
+$stmt = mysqli_stmt_init($connection);
+
+if (mysqli_stmt_prepare($stmt, "SELECT * FROM users WHERE id = ?")) {
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} else {
+    
+}
+
+if ($row = mysqli_fetch_assoc($result)) {
+    $name = $row['name'];
+    $email = $row['email'];
+    $image = $row['image'];
+    $about = $row['about'];
+
+    
+} else {
+   
+}
+
 ?>
 
 <!-- Conteúdo da página de perfil -->
@@ -15,10 +46,10 @@ include_once('../components/admin/header.php');
         <section class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <img src="https://media.licdn.com/dms/image/D4D03AQGdVJQdQIFHrA/profile-displayphoto-shrink_800_800/0/1697559933642?e=1707955200&v=beta&t=B_cR2QTCfdLhFUoscHZ5LmXjJtegIUQXXV-hNZdzS7c"
-                        alt="Foto de Perfil" class="img-fluid mb-3">
+                    <img src="<?php echo  $row['image']; ?>" alt="FOTO DE PERFIL" class="img-fluid mb-3">
+                  
                     <h5>
-                        Matheus Teixeira
+                        <?php echo $name; ?>
                     </h5>
                     <p>
                         Desenvolvedor Web
